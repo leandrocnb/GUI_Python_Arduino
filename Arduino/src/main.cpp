@@ -1,21 +1,21 @@
 #include <Arduino.h>
 
-#define LedGreen 12
+#include "ACS712.h"
 
-void setup() {
-  // initialize digital pin LED_BUILTIN as an output.
+// Arduino UNO has 5.0 volt with a max ADC value of 1023 steps
+// ACS712 5A  uses 185 mV per A
+// ACS712 20A uses 100 mV per A
+// ACS712 30A uses  66 mV per A
+
+ACS712  ACS(A0, 5.0, 1023, 66);
+
+void setup()
+{
   Serial.begin(9600);
-  pinMode(LedGreen, OUTPUT);
 }
 
-// the loop function runs over and over again forever
-void loop() {
-  char readSerial = Serial.read();
-  
-  if(readSerial == '1'){
-    digitalWrite(LedGreen, HIGH);
-  }
-  else if(readSerial == '0'){
-    digitalWrite(LedGreen, LOW);
-  }
+void loop()
+{
+  int mA = ACS.mA_AC();
+  Serial.println(mA);
 }

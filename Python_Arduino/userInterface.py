@@ -1,5 +1,6 @@
 import PySimpleGUI as sg
 import connectArduino as arduino
+import time
 
 sg.theme('DarkAmber')
 layout = [
@@ -14,7 +15,7 @@ while True:
     event, values = windows.read()
     if(event == 'on'):
         print('on')
-        arduino.ledArduino('1')
+       	arduino.ledArduino('20.18;104.23;200;404')
     elif(event == 'off'):
         print('off')
         arduino.ledArduino('0')
